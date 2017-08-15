@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<!-- html -->
+<html lang="en" ng-app="myApp" class="no-js">
+<!-- head -->
+<head>
+<title>Server Application with Bundles :: Homepage</title>
+<link href="public/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /><!-- bootstrap-CSS -->
+<link rel="stylesheet" href="public/css/bootstrap-select.css"><!-- bootstrap-select-CSS -->
+<link href="public/css/font-awesome.css" rel="stylesheet" type="text/css" media="all" /><!-- Fontawesome-CSS -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script type='text/javascript' src='public/js/jquery-2.2.3.min.js'></script>
+<!-- Custom styles -->
+<link href="public/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!--meta data-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript">
+    addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+    function hideURLbar(){ window.scrollTo(0,1); }
+</script>
+<!--//meta data-->
+<!-- online fonts -->
+<link href="//fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext,vietnamese" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Oxygen:300,400,700&amp;subset=latin-ext" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+<!-- /online fonts -->
+
+</head>
+<!-- //head -->
+<!-- body -->
+<body >
+<!--header-->
+<header>
+	<div class="container">
+		<!--logo-->
+			<div class="logo">
+				<h1><a href="index.html">Server Application</a></h1>
+			</div>
+		<!--//logo-->
+				<div class="clearfix"></div>
+    </div>
+</header>
+
+    <!--Vertical Tab-->
+	<div class="categories-section main-grid-border" id="mobilew3layouts">
+		<div class="container">
+      <div class="row">
+        <div class="col-sm-2">
+         <nav class="nav-sidebar">
+             <ul class="nav">
+                 <li class="active"><a href="#!/view1">Server 1</a></li>
+                 <li><a href="#!/view2">Server 2</a></li>
+                 <li><a href="#!/view3">Server 3</a></li>
+                 <li><a href="#!/view4">Server 4</a></li>
+                 <li class="nav-divider"></li>
+                 <!-- <li><a href="javascript:;"><i class="glyphicon glyphicon-off"></i> Sign in</a></li> -->
+             </ul>
+         </nav>
+     </div>
+           <div class="col-md-10">
+                 <div ng-view></div>
+           </div>
+       </div>
+			</div>
+		</div>
+	</div>
+<!-- for bootstrap working -->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="app.js"></script>
+<script src="view1/view1.js"></script>
+<script src="view2/view2.js"></script>
+<script src="components/version/version.js"></script>
+<script src="components/version/version-directive.js"></script>
+<script src="components/version/interpolate-filter.js"></script>
+		<script src="public/js/bootstrap.js"></script>
+<!-- //for bootstrap working --><!-- Responsive-slider -->
+    <!-- Banner-slider -->
+<script src="public/js/responsiveslides.min.js"></script>
+   <script>
+    $(function () {
+      $("#slider").responsiveSlides({
+      	auto: true,
+      	speed: 500,
+        namespace: "callbacks",
+        pager: true,
+      });
+    });
+  </script>
+    <!-- //Banner-slider -->
+<!-- //Responsive-slider -->
+<!-- Bootstrap select option script -->
+<script src="public/js/bootstrap-select.js"></script>
+<script>
+  $(document).ready(function () {
+    var mySelect = $('#first-disabled2');
+
+    $('#special').on('click', function () {
+      mySelect.find('option:selected').prop('disabled', true);
+      mySelect.selectpicker('refresh');
+    });
+
+    $('#special2').on('click', function () {
+      mySelect.find('option:disabled').prop('disabled', false);
+      mySelect.selectpicker('refresh');
+    });
+
+    $('#basic2').selectpicker({
+      liveSearch: true,
+      maxOptions: 1
+    });
+  });
+</script>
+<!-- //Bootstrap select option script -->
+
+<!-- easy-responsive-tabs -->
+<link rel="stylesheet" type="text/css" href="public/css/easy-responsive-tabs.css " />
+<script src="public/js/easyResponsiveTabs.js"></script>
+<!-- //easy-responsive-tabs -->
+    <!-- here stars scrolling icon -->
+			<!-- start-smoth-scrolling -->
+			<script type="text/javascript" src="public/js/move-top.js"></script>
+			<script type="text/javascript" src="public/js/easing.js"></script>
+      <script src="app.js"></script>
+      <script src="view1/view1.js"></script>
+      <script src="view2/view2.js"></script>
+      <script src="view3/view3.js"></script>
+      <script src="view4/view4.js"></script>
+			<script type="text/javascript">
+				jQuery(document).ready(function($) {
+					$(".scroll").click(function(event){
+						event.preventDefault();
+						$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+					});
+				});
+			</script>
+			<!-- start-smoth-scrolling -->
+		<!-- //here ends scrolling icon -->
+</body>
+<!-- //body -->
+</html>
+<!-- //html -->
