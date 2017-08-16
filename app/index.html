@@ -47,19 +47,31 @@
 	<div class="categories-section main-grid-border" id="mobilew3layouts">
 		<div class="container">
       <div class="row">
-        <div class="col-sm-2">
-         <nav class="nav-sidebar">
+        <div class="col-sm-3">
+         <!-- <nav class="nav-sidebar">
              <ul class="nav">
                  <li class="active"><a href="#!/view1">Server 1</a></li>
                  <li><a href="#!/view2">Server 2</a></li>
                  <li><a href="#!/view3">Server 3</a></li>
                  <li><a href="#!/view4">Server 4</a></li>
-                 <li class="nav-divider"></li>
+                 <li class="nav-divider"></li> -->
                  <!-- <li><a href="javascript:;"><i class="glyphicon glyphicon-off"></i> Sign in</a></li> -->
-             </ul>
-         </nav>
+             <!-- </ul>
+         </nav> -->
+          <div id="sidebar" class="well sidebar-nav">
+                <h3><i class="glyphicon glyphicon-home"></i>
+                    <small><b>All Servers</b></small>
+                </h3>
+                  <hr>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="#!/view1">Server 1</a></li>
+                    <li><a href="#!/view2">Server 2</a></li>
+                    <li><a href="#!/view3">Server 3</a></li>
+                    <li><a href="#!/view4">Server 4</a></li>
+                </ul>
+            </div>
      </div>
-           <div class="col-md-10">
+           <div class="col-md-9">
                  <div ng-view></div>
            </div>
        </div>
@@ -69,9 +81,6 @@
 <!-- for bootstrap working -->
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
-<script src="app.js"></script>
-<script src="view1/view1.js"></script>
-<script src="view2/view2.js"></script>
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>
 <script src="components/version/interpolate-filter.js"></script>
@@ -134,8 +143,30 @@
 						event.preventDefault();
 						$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 					});
-				});
-			</script>
+        });
+            $(function(){
+    $(".dropdown").hover(            
+            function() {
+                $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+                $(this).toggleClass('open');
+                $('b', this).toggleClass("caret caret-up");                
+            },
+            function() {
+                $('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+                $(this).toggleClass('open');
+                $('b', this).toggleClass("caret caret-up");                
+            });
+    });
+</script>
+<script>
+  $(document).ready(function() {
+$(".btn-pref .btn").click(function () {
+    $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
+    // $(".tab").addClass("active"); // instead of this do the below 
+    $(this).removeClass("btn-default").addClass("btn-primary");   
+});
+});
+</script>
 			<!-- start-smoth-scrolling -->
 		<!-- //here ends scrolling icon -->
 </body>
