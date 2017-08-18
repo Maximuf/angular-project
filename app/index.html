@@ -12,6 +12,7 @@
 <script type='text/javascript' src='public/js/jquery-2.2.3.min.js'></script>
 <!-- Custom styles -->
 <link href="public/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.css" rel="stylesheet" />
 <!--meta data-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -48,23 +49,13 @@
 		<div class="container">
       <div class="row">
         <div class="col-sm-3">
-         <!-- <nav class="nav-sidebar">
-             <ul class="nav">
-                 <li class="active"><a href="#!/view1">Server 1</a></li>
-                 <li><a href="#!/view2">Server 2</a></li>
-                 <li><a href="#!/view3">Server 3</a></li>
-                 <li><a href="#!/view4">Server 4</a></li>
-                 <li class="nav-divider"></li> -->
-                 <!-- <li><a href="javascript:;"><i class="glyphicon glyphicon-off"></i> Sign in</a></li> -->
-             <!-- </ul>
-         </nav> -->
           <div id="sidebar" class="well sidebar-nav">
                 <h3><i class="glyphicon glyphicon-home"></i>
                     <small><b>All Servers</b></small>
                 </h3>
                   <hr>
                 <ul class="nav nav-pills nav-stacked">
-                    <li><a href="#!/view1">Server 1</a></li>
+                    <li><a href="#!/view2">Server 1</a></li>
                     <li><a href="#!/view2">Server 2</a></li>
                     <li><a href="#!/view3">Server 3</a></li>
                     <li><a href="#!/view4">Server 4</a></li>
@@ -84,91 +75,67 @@
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>
 <script src="components/version/interpolate-filter.js"></script>
-		<script src="public/js/bootstrap.js"></script>
-<!-- //for bootstrap working --><!-- Responsive-slider -->
-    <!-- Banner-slider -->
-<script src="public/js/responsiveslides.min.js"></script>
-   <script>
-    $(function () {
-      $("#slider").responsiveSlides({
-      	auto: true,
-      	speed: 500,
-        namespace: "callbacks",
-        pager: true,
-      });
-    });
-  </script>
-    <!-- //Banner-slider -->
-<!-- //Responsive-slider -->
-<!-- Bootstrap select option script -->
+<script src="public/js/bootstrap.js"></script>
 <script src="public/js/bootstrap-select.js"></script>
-<script>
-  $(document).ready(function () {
-    var mySelect = $('#first-disabled2');
+<script src="app.js"></script>
+<script src="view1/view1.js"></script>
+<script src="view2/view2.js"></script>
+<script src="view3/view3.js"></script>
+<script src="view4/view4.js"></script>
 
-    $('#special').on('click', function () {
-      mySelect.find('option:selected').prop('disabled', true);
-      mySelect.selectpicker('refresh');
-    });
-
-    $('#special2').on('click', function () {
-      mySelect.find('option:disabled').prop('disabled', false);
-      mySelect.selectpicker('refresh');
-    });
-
-    $('#basic2').selectpicker({
-      liveSearch: true,
-      maxOptions: 1
-    });
-  });
-</script>
-<!-- //Bootstrap select option script -->
-
-<!-- easy-responsive-tabs -->
 <link rel="stylesheet" type="text/css" href="public/css/easy-responsive-tabs.css " />
-<script src="public/js/easyResponsiveTabs.js"></script>
-<!-- //easy-responsive-tabs -->
-    <!-- here stars scrolling icon -->
-			<!-- start-smoth-scrolling -->
-			<script type="text/javascript" src="public/js/move-top.js"></script>
-			<script type="text/javascript" src="public/js/easing.js"></script>
-      <script src="app.js"></script>
-      <script src="view1/view1.js"></script>
-      <script src="view2/view2.js"></script>
-      <script src="view3/view3.js"></script>
-      <script src="view4/view4.js"></script>
-			<script type="text/javascript">
+            <script>
+                $(document).ready(function () {
+                var mySelect = $('#first-disabled2');
+            
+                $('#special').on('click', function () {
+                    mySelect.find('option:selected').prop('disabled', true);
+                    mySelect.selectpicker('refresh');
+                });
+            
+                $('#special2').on('click', function () {
+                    mySelect.find('option:disabled').prop('disabled', false);
+                    mySelect.selectpicker('refresh');
+                });
+            
+                $('#basic2').selectpicker({
+                    liveSearch: true,
+                    maxOptions: 1
+                });
+                });
+            </script>
+            <script src="public/js/easyResponsiveTabs.js"></script>
+            <script type="text/javascript" src="public/js/move-top.js"></script>
+            <script type="text/javascript" src="public/js/easing.js"></script>
+            <script type="text/javascript">
 				jQuery(document).ready(function($) {
 					$(".scroll").click(function(event){
 						event.preventDefault();
 						$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
 					});
-        });
-            $(function(){
-    $(".dropdown").hover(            
-            function() {
-                $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
-                $(this).toggleClass('open');
-                $('b', this).toggleClass("caret caret-up");                
-            },
-            function() {
-                $('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
-                $(this).toggleClass('open');
-                $('b', this).toggleClass("caret caret-up");                
+                    });
+                        $(function(){
+                $(".dropdown").hover(            
+                        function() {
+                            $('.dropdown-menu', this).stop( true, true ).fadeIn("fast");
+                            $(this).toggleClass('open');
+                            $('b', this).toggleClass("caret caret-up");                
+                        },
+                        function() {
+                            $('.dropdown-menu', this).stop( true, true ).fadeOut("fast");
+                            $(this).toggleClass('open');
+                            $('b', this).toggleClass("caret caret-up");                
+                        });
+                });
+            </script>
+            <script>
+            $(document).ready(function() {
+            $(".btn-pref .btn").click(function () {
+                $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
+                $(this).removeClass("btn-default").addClass("btn-primary");
             });
-    });
-</script>
-<script>
-  $(document).ready(function() {
-$(".btn-pref .btn").click(function () {
-    $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
-    // $(".tab").addClass("active"); // instead of this do the below 
-    $(this).removeClass("btn-default").addClass("btn-primary");   
-});
-});
-</script>
-			<!-- start-smoth-scrolling -->
-		<!-- //here ends scrolling icon -->
+            });
+            </script>
 </body>
 <!-- //body -->
 </html>

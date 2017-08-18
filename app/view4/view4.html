@@ -25,91 +25,24 @@
                 <table class="table table-bordered table-sm m-0">
                     <thead class="">
                         <tr>
-                            <th>#</th>
                             <th>Server</th>
                             <th>Patch</th>
                             <th>Slots</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <span class="custom-control-indicator"></span>
-                                </label>
-                            </td>
-                            <td>any server</td>
-                            <td>any patches</td>
+                        <tr ng-repeat="item in allServer">
+                            <td>{{ item.server }}</td>
+                            <td>{{ item.patch }}</td>
                             <td>
                                 <div class="btn-group timepickercontainer dropdown focus-active" id="atimepicker"   data-value="11:45AM">
-                                        <button type="button" data-onClick="ScrollToActive(this);" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        11:45AM <i class="caret"></i>
+                                        <button ng-disabled="item.slot !== "" type="button" class="btn btn-default dropdown-toggle col-md-12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{ item.slot }}
+                                        <i class="caret"></i>
                                         </button>
-                                        <ul class="dropdown-menu" onLoad="SetScrollValue(this);">
-
-                                                                      <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:00AM">11:00AM</a></li>
-
-                                                                      <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:15AM">3:00PM</a></li>
-
-                                                                      <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:30AM">7:00PM</a></li>
-
-                                                                      <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:45AM">10:00AM</a></li>
-                                                                  </ul>
-                                    </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <span class="custom-control-indicator"></span>
-                                </label>
-                            </td>
-                            <td>any server</td>
-                            <td>any patches</td>
-                            <td>
-                                <div class="btn-group timepickercontainer dropdown focus-active" id="atimepicker"   data-value="11:45AM">
-                                        <button type="button" data-onClick="ScrollToActive(this);" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        11:45AM <i class="caret"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" onLoad="SetScrollValue(this);">
-
-                                                                    <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:00AM">11:00AM</a></li>
-
-                                                                    <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:15AM">3:00PM</a></li>
-
-                                                                    <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:30AM">7:00PM</a></li>
-
-                                                                    <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:45AM">10:00AM</a></li>
-                                                                </ul>
-                                    </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input">
-                                    <span class="custom-control-indicator"></span>
-                                </label>
-                            </td>
-                            <td>any server</td>
-                            <td>any patches</td>
-                            <td>
-                                <div class="btn-group timepickercontainer dropdown focus-active" id="atimepicker"   data-value="11:45AM">
-                                        <button type="button" data-onClick="ScrollToActive(this);" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        11:45AM <i class="caret"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" onLoad="SetScrollValue(this);">
-
-                                                                    <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:00AM">11:00AM</a></li>
-
-                                                                    <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:15AM">3:00PM</a></li>
-
-                                                                    <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:30AM">7:00PM</a></li>
-
-                                                                    <li><a href="#" onclick="HandleTimeSelect(this);" data-value="8:45AM">10:00AM</a></li>
-                                                                </ul>
+                                        <ul class="dropdown-menu">
+                                            <li ng-repeat="time in timeSlots"><a ng-click="HandleTimeSelect(time, item.server);" data-value="time">{{ time }}</a></li>
+                                        </ul>
                                     </div>
                             </td>
                         </tr>
