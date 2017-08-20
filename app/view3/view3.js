@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.view3', ['ngRoute'])
+angular.module('myApp.view3', ['ngRoute', 'myApp.userService'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view3', {
@@ -9,11 +9,25 @@ angular.module('myApp.view3', ['ngRoute'])
   });
 }])
 
-.controller('View3Ctrl', ['$scope', function($scope) {
+.controller('View3Ctrl', ['$scope', 'userService', '$filter', '$location', function($scope, userService, $filter, $location) {
+    $scope.selectedItem = [];
     $scope.currentBundle = [];
     $scope.selectedBundle = '';
     $scope.currentHotfix = [];
     $scope.selectedHotfix = '';
+    $scope.currentPage = 0;
+    $scope.pageSize = 35;
+    $scope.orderByField = 'id';
+    $scope.reverseSort = false;
+    $scope.$watch(function () {
+        return userService.getItem();
+    }, function (newValue, oldValue) {
+        if (newValue) {
+            $scope.selectedItem = newValue;
+        } else {
+          $location.path('/view2');
+        }
+    }, true);
     $scope.allBundles = [
       {
           id: 1,
@@ -78,12 +92,27 @@ angular.module('myApp.view3', ['ngRoute'])
         description: 'a little description about Hotfix 6'
     }
 ];
-  $scope.selectOption = function () {
-    const id = parseInt($scope.selectedBundle, 10);
-    $scope.currentBundle = $scope.allBundles.filter((bundle) => bundle.id == id);
+  $scope.selectBundle = function (userId, bundle) {
+    userService.updateBundle(userId, bundle);
   };
-  $scope.selectHotfix = function () {
-    const id = parseInt($scope.selectedHotfix, 10);
-    $scope.currentHotfix = $scope.allHotfixs.filter((hotfix) => hotfix.id == id);
+  $scope.selectHotfix = function (userId, hotfix) {
+    userService.updateHotfix(userId, hotfix);
   };
-}]);
+  $scope.getData = function () {
+    return $filter('filter')($scope.selectedItem, $scope.q);
+  }
+  $scope.numberOfPages=function(){
+    $scope.totalPages = Math.ceil($scope.getData().length/$scope.pageSize);
+    return $scope.totalPages;
+  }
+  $scope.submit = function () {
+      userService.setData();
+      $location.path('/view4');
+  }
+}])
+.filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+});

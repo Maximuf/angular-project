@@ -9,7 +9,7 @@ angular.module('myApp.view4', ['ngRoute'])
   });
 }])
 
-.controller('View4Ctrl', ['$scope', function($scope) {
+.controller('View4Ctrl', ['$scope', 'userService', '$location', function($scope, userService, $location) {
   $scope.selectedTime = "Select a slot"
   $scope.timeSlots = [
     "11:00AM",
@@ -17,6 +17,20 @@ angular.module('myApp.view4', ['ngRoute'])
     "7:00PM",
     "10:00AM"
   ];
+  $scope.created = false;
+  $scope.create = function () {
+    $scope.created = true;
+  }
+  $scope.$watch(function () {
+    return userService.getData();
+}, function (newValue, oldValue) {
+    if (newValue) {
+        $scope.selectedItem = newValue;
+    } else {
+      $location.path('/view2');
+    }
+}, true);
+
   $scope.allServer = [
     {
         server: 1,
@@ -39,13 +53,9 @@ angular.module('myApp.view4', ['ngRoute'])
         slot: 'Pick Slot'
     }
 ];
-  $scope.HandleTimeSelect = function(time, selectedServer) {
-    const id = parseInt(selectedServer, 10);
-    $scope.allServer.map((server => {
-      if (server.server === id) {
-        server['slot'] = time;
-      }
-    }));
+  $scope.HandleTimeSelect = function(time, selectedUser) {
+    const id = parseInt(selectedUser, 10);
+   userService.updateSlot(time, id);
     $scope.timeSlots = $scope.timeSlots.filter(elem => elem !== time);
   };
 

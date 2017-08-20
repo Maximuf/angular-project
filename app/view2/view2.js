@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.view2', ['ngRoute'])
+angular.module('myApp.view2', ['ngRoute', 'myApp.userService'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view2', {
@@ -9,7 +9,7 @@ angular.module('myApp.view2', ['ngRoute'])
   });
 }])
 
-.controller('View2Ctrl', ['$scope', '$filter', '$timeout', function ($scope, $filter, $timeout) {
+.controller('View2Ctrl', ['$scope', '$filter', '$timeout', 'userService', '$location', function ($scope, $filter, $timeout, userService, $location) {
     $scope.currentPage = 0;
     $scope.pageSize = 35;
     $scope.orderByField = 'id';
@@ -17,59 +17,8 @@ angular.module('myApp.view2', ['ngRoute'])
     $scope.option = [];
     $scope.selectedItem = [];
     $scope.message = '';
-    $scope.data = [
-                {"id":1,"first_name":"Heather","last_name":"Bell","hobby":"Eating"},
-                {"id":2,"first_name":"Andrea","last_name":"Dean","hobby":"Gaming"},
-                {"id":3,"first_name":"Peter","last_name":"Barnes","hobby":"Reading Books"},
-                {"id":4,"first_name":"Harry","last_name":"Bell","hobby":"Youtubing"},
-                {"id":5,"first_name":"Deborah","last_name":"Burns","hobby":"Fishing"},
-                {"id":6,"first_name":"Larry","last_name":"Kim","hobby":"Skipping"},
-                {"id":7,"first_name":"Jason","last_name":"Wallace","hobby":"Football"},
-                {"id":8,"first_name":"Carol","last_name":"Williams","hobby":"Baseball"},
-                {"id":9,"first_name":"Samuel","last_name":"Olson","hobby":"Programming"},
-                {"id":10,"first_name":"Donna","last_name":"Evans","hobby":"Playing DOTA"},
-                {"id":11,"first_name":"Lois","last_name":"Butler","hobby":"Gaming"},
-                {"id":12,"first_name":"Daniel","last_name":"Hill","hobby":"surfing"},
-                {"id":13,"first_name":"Matthew","last_name":"Torres","hobby":"cycling"},
-                {"id":14,"first_name":"Jerry","last_name":"Hernandez","hobby":"Music"},
-                {"id":15,"first_name":"Christopher","last_name":"Carpenter","hobby":"Football"},
-                {"id":16,"first_name":"Harold","last_name":"West","hobby":"Gaming"},
-                {"id":17,"first_name":"Carol","last_name":"Hicks","hobby":"Youtubing"},
-                {"id":18,"first_name":"Bonnie","last_name":"Davis","hobby":"Partying"},
-                {"id":19,"first_name":"Nancy","last_name":"Banks","hobby":"Photography"},
-                {"id":20,"first_name":"Walter","last_name":"Freeman","hobby":"maya"},
-                {"id":21,"first_name":"Louis","last_name":"Gonzales","hobby":"Bloging"},
-                {"id":22,"first_name":"Jean","last_name":"Watkins","hobby":"Bloging"},
-                {"id":23,"first_name":"Albert","last_name":"Harris","hobby":"Music"},
-                {"id":24,"first_name":"Billy","last_name":"Owens","hobby":"Camping"},
-                {"id":25,"first_name":"Russell","last_name":"Patterson","hobby":"Singing"},
-                {"id":26,"first_name":"Micheal","last_name":"Jordan","hobby":"Joking"},
-                {"id":27,"first_name":"Heather","last_name":"Bell","hobby":"Eating"},
-                {"id":28,"first_name":"Andrea","last_name":"Dean","hobby":"Gaming"},
-                {"id":29,"first_name":"Peter","last_name":"Barnes","hobby":"Reading Books"},
-                {"id":30,"first_name":"Harry","last_name":"Bell","hobby":"Youtubing"},
-                {"id":31,"first_name":"Deborah","last_name":"Burns","hobby":"Fishing"},
-                {"id":32,"first_name":"Larry","last_name":"Kim","hobby":"Skipping"},
-                {"id":33,"first_name":"Jason","last_name":"Wallace","hobby":"Football"},
-                {"id":34,"first_name":"Carol","last_name":"Williams","hobby":"Baseball"},
-                {"id":35,"first_name":"Samuel","last_name":"Olson","hobby":"Programming"},
-                {"id":36,"first_name":"Donna","last_name":"Evans","hobby":"Playing DOTA"},
-                {"id":37,"first_name":"Lois","last_name":"Butler","hobby":"Gaming"},
-                {"id":38,"first_name":"Daniel","last_name":"Hill","hobby":"surfing"},
-                {"id":39,"first_name":"Matthew","last_name":"Torres","hobby":"cycling"},
-                {"id":40,"first_name":"Jerry","last_name":"Hernandez","hobby":"Music"},
-                {"id":41,"first_name":"Christopher","last_name":"Carpenter","hobby":"Football"},
-                {"id":42,"first_name":"Harold","last_name":"West","hobby":"Gaming"},
-                {"id":43,"first_name":"Carol","last_name":"Hicks","hobby":"Youtubing"},
-                {"id":44,"first_name":"Bonnie","last_name":"Davis","hobby":"Partying"},
-                {"id":45,"first_name":"Nancy","last_name":"Banks","hobby":"Photography"},
-                {"id":46,"first_name":"Walter","last_name":"Freeman","hobby":"maya"},
-                {"id":47,"first_name":"Louis","last_name":"Gonzales","hobby":"Bloging"},
-                {"id":48,"first_name":"Jean","last_name":"Watkins","hobby":"Bloging"},
-                {"id":49,"first_name":"Albert","last_name":"Harris","hobby":"Music"},
-                {"id":50,"first_name":"Billy","last_name":"Owens","hobby":"Camping"},
-            ];
-
+    $scope.data = userService.getUsers();
+    
     $scope.data.forEach((element) => {
         $scope.option.push(element.hobby);
     });
@@ -120,6 +69,20 @@ angular.module('myApp.view2', ['ngRoute'])
     $scope.getData = function () {
       return $filter('filter')($scope.data, $scope.q)
     }
+    $scope.submit = function () {
+        // $scope.$emit('submitItem', { selectedItem: $scope.selectedItem });
+        if ($scope.selectedItem.length > 0) {
+            userService.setItem($scope.selectedItem);
+            $location.path('/view3');
+        } else {
+            let x = document.getElementById("snackbar")
+            x.className = "show";
+            $scope.message = 'No data was selected';
+            $timeout(function(){
+               x.className = x.className.replace("show", "");
+            }, 2000);
+        }
+    }
     $scope.getNumber = function(num) {
         return new Array(num);
     }
@@ -129,6 +92,14 @@ angular.module('myApp.view2', ['ngRoute'])
     $scope.numberOfPages=function(){
         $scope.totalPages = Math.ceil($scope.getData().length/$scope.pageSize);
         return $scope.totalPages;
+    }
+    if ($location.search().message) {
+        let x = document.getElementById("snackbar")
+        x.className = "show";
+        $scope.message = $location.search().message;
+        $timeout(function(){
+           x.className = x.className.replace("show", "");
+        }, 2000);
     }
 }])
 .filter('startFrom', function() {

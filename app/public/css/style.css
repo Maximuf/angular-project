@@ -103,12 +103,13 @@ header{
     width: 100%;
     box-shadow: 0 40px 100px rgba(255, 255, 255, 0.2);
 }
+
 #message {
 	color: #00B70C;
     padding-left: 30%;
     font-size: 20px;
-    position: relative;
-    top: 40px;
+    /* position: relative;
+    top: 40px; */
 }
 .w3layouts-main-content {
     padding:80px 0;
